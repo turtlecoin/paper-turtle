@@ -33,6 +33,16 @@ var genkeys = function(additional_entropy, lang) {
   }
 };
 
+var genturticon = function(address) {
+  document.getElementById("identicon_widget").innerHTML = "";
+  var icon = document.createElement("canvas");
+  icon.width = 128;
+  icon.height = 128;
+  icon.setAttribute("data-jdenticon-value", address);
+  document.getElementById("identicon_widget").appendChild(icon);
+  jdenticon.update(icon);
+};
+
 var restore_keys = function(lang) {
   var seed_phrase = document.getElementById("seed_phrase").value;
   var seed = mn_decode(seed_phrase);
@@ -46,6 +56,7 @@ var restore_keys = function(lang) {
   document.getElementById("step2").style.display = "block";
   document.getElementById("step3").style.display = "block";
   document.getElementById("step4").style.display = "block";
+  genturticon(keys.public_addr);
 
 };
 
@@ -95,18 +106,7 @@ var genwallet = function(lang) {
   qr.make();
   document.getElementById('qrcodeView_copy').innerHTML = qr.createImgTag();
 
-  // wallet_keys_widget.innerHTML = keys.privateKeys;
-  //address_qr_widget.innerHTML = "";
-  //qr=new QRCode(address_qr_widget, {correctLevel:QRCode.CorrectLevel.L});
-  //qr.makeCode("DERO:"+keys.public_addr);
-
-  document.getElementById("identicon_widget").innerHTML = "";
-  var icon = document.createElement("canvas");
-  icon.width = 128;
-  icon.height = 128;
-  icon.setAttribute("data-jdenticon-value", keys.public_addr);
-  document.getElementById("identicon_widget").appendChild(icon);
-  jdenticon.update(icon);
+  genturticon(keys.public_addr);
 
 };
 
